@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style2.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="app">
+    <header>
+      <div class="history">
+        <div class="history-cards">
+        </div>
+      </div>
+      <div class="game-name">Gamble</div>
+    </header>
+    <div class="table">
+    <main>
+        <div class="game-container">
+          <div class="rules">
+            <p id="header-rules">RULES<p>
+              <p>
+                The player places a bet before the cards are revealed.
+                After the bet is placed, the cards are revealed.
+                The player then chooses the color of the next card to be revealed, either red or black.
+                After the player selects a color, the next card is revealed.
+                If the color of the revealed card matches the player's choice, the player wins, and their bet is doubled.
+                If the player guesses incorrectly, they lose their bet.
+                The player can continue playing and placing bets for each round.
+              </p> 
+            <button class="btn-play">PLAY</button>
+          </div>
+          <div class="main-game-content">
+            <div id="game">
+              <canvas  id="canvas"></canvas>
+            </div>
+            <div class="buttons-container">
+              <button class="red-button">RED</button>
+              <button class="black-button">BLACK</button>
+            </div>  
+          </div>
+
+        </div>
+       
+    </main>
+    <div class="win-container-portrait">  
+      <label for="win-portrait" id="label-portrait-win">Win</label>
+      <span id="win-portrait" class="win-portrait zoom-label ">0</span>
+    </div>
+ 
+  </div>
+    <footer>
+        <button class="btn-info" ><i class="fa fa-info"></i></button>
+      <div class="credit-container">
+        <label for="credit-value">Credit</label>
+        <span id="credit-value" class="credit-value zoom-label ">0</span>
+      </div>
+        <div class="win-container">  
+          <label for="winAmount" id="label-win">Win</label>
+          <span id="winAmount" class="winAmount zoom-label ">0</span>
+        </div>
+        <div class="collect-container">
+            <button class="collect" onclick="payout()">collect</button>
+        </div>
+          <div class="bet-container">
+            <div class="bet-amount-container">
+                <button type="button" class="btn-decrease" onclick="adjustBet('decrease')"><i class="fa fa-minus"></i></button>
+                <div class="bet">
+                  <label for="betAmount">Bet</label>
+                  <span id="betAmount" class="bet-amount">1</span>
+                </div>
+                <button type="button" class="btn-increase" onclick="adjustBet('increase')"><i class="fa fa-plus"> </i></button>
+            </div>
+          </div>
+    </footer>
+  </div>
+
+<script src="./js/ui.js"></script>
+<script src="./js/animation.js"> </script>
+<script src="./js/canvas.js"></script>
+<script src="./js/script.js"></script>
+</body>
+
+</html>
