@@ -36,7 +36,6 @@ body {
   color: var(--font-color-primary);
 }
 
-
 /****************** HEADER *********************/
 header {
   font-size: var(--portrait-font-small);
@@ -44,7 +43,7 @@ header {
   display: flex;
   justify-content: space-between;
   height: 12vmin;
-  background:linear-gradient(to top ,rgb(48, 47, 47),#a06023 ,#743d07);
+  background: linear-gradient(to top, rgb(48, 47, 47), #a06023, #743d07);
 }
 .game-name {
   font-size: 5vmin;
@@ -58,7 +57,6 @@ header {
   align-items: center;
   justify-content: center;
   margin-left: 3vmin;
-
 }
 .history-cards {
   display: flex;
@@ -68,7 +66,7 @@ header {
   flex-direction: row-reverse;
   justify-content: center;
   width: 100%;
-  background:url('./Assets/mahagoni.jpg');
+  background: url("./Assets/mahagoni.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   border-radius: 2vmin;
@@ -81,19 +79,18 @@ header {
   height: 8vmin;
 }
 /****************** MAIN ( GAME ) *********************/
-.table{
+.table {
   position: relative;
   flex: 8;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
- background:url('background.jpg');
-  background-size: contain ;
+  background: url("./Assets/background.jpg");
+  background-size: contain;
   background-size: 15% 25%;
 }
 main {
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -101,58 +98,57 @@ main {
   width: 95vmin;
   height: 60vmin;
   border-radius: 20vmin;
-  background:url('./Assets/mahagoni.jpg') ;
+  background: url("./Assets/mahagoni.jpg");
   box-shadow: inset 0 0 20vmin rgb(7, 0, 0);
   border: 1vmin double black;
   background-size: 100% 100%;
 }
-.win-container-portrait{
+.win-container-portrait {
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.10);
+  background: rgba(0, 0, 0, 0.1);
   color: gold;
   font-weight: 600;
   width: 100%;
   height: max-content;
 }
-#game{
+#game {
   border: 0.5vmin solid rgb(255, 255, 255);
   padding: 2vmin;
-  
 }
-.rules{
+.rules {
   display: none;
   font-weight: 800;
-  align-items:center;
-  text-align:justify;
+  align-items: center;
+  text-align: justify;
   justify-content: center;
   flex-direction: column;
-  
+
   font-size: 1.7vmin;
   width: 80%;
   height: 95%;
 }
-#header-rules{
+#header-rules {
   font-size: 3.5vmin;
   margin-bottom: 2%;
 }
-.btn-play{
+.btn-play {
   margin-top: 4%;
   font-size: 3vmin;
   background-color: var(--color-success);
   color: white;
   font-weight: 800;
-  border:none;
+  border: none;
   padding: 2vmin 4vmin;
   border-radius: 1vmin;
 }
-.main-game-content{
+.main-game-content {
   display: flex;
   gap: 10vmin;
   align-items: center;
-  background-color:green;
+  background-color: green;
   justify-content: center;
   border-radius: 15vmin;
   width: 100%;
@@ -166,7 +162,6 @@ main {
   border-radius: 17vmin;
   height: 80%;
   width: 85%;
- 
 }
 .buttons-container {
   display: flex;
@@ -184,23 +179,19 @@ main {
   height: 18vmin;
   border: none;
   border-radius: 1.5vmin;
-  border: 1vmin double rgba(131, 112, 8, 0.493) ;
-
+  border: 1vmin double rgba(131, 112, 8, 0.493);
 }
 .red-button {
-
   background-color: var(--red-card-color);
-  
 }
-.red-button:disabled{
+.red-button:disabled {
   background-color: gray;
 }
 .black-button {
-    border: 80px solid white ;
+  border: 80px solid white;
   background-color: var(--black-card-color);
-  
 }
-.black-button:disabled{
+.black-button:disabled {
   background-color: gray;
 }
 
@@ -213,27 +204,27 @@ footer {
   height: 15vmin;
   align-items: center;
   font-weight: 700;
-  text-shadow:0 0 0.5vmin black;
- background:linear-gradient(to bottom,rgb(48, 47, 47),#a06023 ,#743d07);
+  text-shadow: 0 0 0.5vmin black;
+  background: linear-gradient(to bottom, rgb(48, 47, 47), #a06023, #743d07);
   width: 100%;
   gap: 5vmin;
 }
 .btn-increase {
   color: white;
-  border-radius:1vmin;
+  border-radius: 1vmin;
   background-color: var(--color-success);
 }
 .collect-container {
   margin-right: 2vmin;
   display: none;
 }
-.collect{
-  background-color:var(--color-success);
-  border-radius:2vmin;
+.collect {
+  background-color: var(--color-success);
+  border-radius: 2vmin;
 }
 .btn-decrease {
   color: white;
-  border-radius:1vmin;
+  border-radius: 1vmin;
   background-color: var(--color-danger);
 }
 footer button {
@@ -287,7 +278,7 @@ label {
   font-size: 2vmin;
 }
 .zoom-label {
-  font-size:4vmin;
+  font-size: 4vmin;
 }
 .zoom-animation {
   transform: scale(1.4);
@@ -298,29 +289,27 @@ label {
   transition: transform 1s ease;
 }
 @media screen and (orientation: portrait) {
-  header{
+  header {
     flex: 1;
   }
-  .table{
+  .table {
     justify-content: space-between;
-    background-size:25% 25%;
+    background-size: 25% 25%;
   }
-  .rules{
+  .rules {
     font-size: 1.9vmin;
     height: 90%;
     width: 90%;
-   
-    
   }
-  main{
+  main {
     margin-top: 2%;
     width: 80vw;
     height: 60vh;
     margin-bottom: 1%;
   }
-  .game-container{
-    height:85%;
-    width:80% ;
+  .game-container {
+    height: 85%;
+    width: 80%;
     gap: 7vmin;
   }
   .buttons-container {
@@ -329,7 +318,7 @@ label {
   footer button {
     font-size: 3vmin;
   }
-  .history-cards img{
+  .history-cards img {
     height: 10vmin;
   }
   .buttons-container button {
@@ -351,22 +340,22 @@ label {
     font-size: 7vmin;
   }
   .btn-info {
-   margin-left: 2vmin;
+    margin-left: 2vmin;
   }
-  .win-container-portrait{
+  .win-container-portrait {
     background-color: rgba(0, 0, 0, 0.5);
-    display: flex;  
+    display: flex;
   }
-  .win-container-portrait label{
+  .win-container-portrait label {
     font-size: 4vmin;
   }
-  .win-container-portrait span{
+  .win-container-portrait span {
     font-size: 8vmin;
   }
   .win-container {
     display: none;
   }
-  .portrait-label{
+  .portrait-label {
     font-size: 7vmin;
   }
   .win-portrait-container {
@@ -374,7 +363,7 @@ label {
     flex-direction: column;
     justify-content: center;
     align-items: center;
- 
+
     color: var(--color-win);
   }
   .game-name {
@@ -387,5 +376,4 @@ label {
   .zoom-label {
     font-size: 6vmin;
   }
-
 }
