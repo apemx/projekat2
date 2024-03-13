@@ -1,4 +1,4 @@
-let isRed=false;
+
 function animationZoom(element){
     element.classList.add('zoom-animation');
     setTimeout(() => {
@@ -9,6 +9,7 @@ function animationZoom(element){
       }, 1000);
     }, 1000);
 }   
+  let isRed=false;
   function animateShufflingCards() {
     if (!isRed) {
     ctx.drawImage(card.redback, 0, 0, canvas.width, canvas.height);
@@ -24,11 +25,17 @@ function animationZoom(element){
     const delta = startValue < finalValue ? 1 : -1;
     const step = (timestamp) => {
       const progress = (timestamp - start) / duration;
-      const currentValue = Math.floor(startValue + delta * Math.abs(finalValue - startValue) * progress);
-      targetElement.textContent = currentValue;
+      let currentValue;
+      if (delta === 1) {
+        currentValue = Math.min(startValue + Math.abs(finalValue - startValue) * progress, finalValue);
+      } else {
+        currentValue = Math.max(startValue - Math.abs(finalValue - startValue) * progress, finalValue);
+      }
+      targetElement.textContent = Math.floor(currentValue);
       if ((delta === 1 && currentValue < finalValue) || (delta === -1 && currentValue > finalValue)) {
         requestAnimationFrame(step);
       }
     };
     requestAnimationFrame(step);
-  }
+  } 
+  

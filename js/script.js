@@ -1,21 +1,3 @@
-
-const bet = document.querySelector(".bet-amount");
-const bet_container = document.querySelector(".bet-container");
-const collect = document.querySelector(".collect-container");
-const credit = document.querySelector(".credit-value");
-const winAmount = document.querySelector(".winAmount");
-const winAmountContainer = document.querySelector(".win-container")
-const winPortrait =document.querySelector('.win-portrait')
-
-let creditAmount = 1000;
-let betAmount = [1, 2, 5, 10, 20, 50, 100];
-let betMultiplier = 1;
-let currentWinBet = 0;
-
-
-
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
 let card = {
   redback: new Image(),
   blackback: new Image(),
@@ -32,8 +14,28 @@ card.red2.src = "Assets/1.png";
 card.black1.src = "Assets/2.png";
 card.black2.src = "Assets/0.png";
 
+const elements = {
+  bet: document.querySelector(".bet-amount"),
+  betContainer: document.querySelector(".bet-container"),
+  collect: document.querySelector(".collect-container"),
+  credit: document.querySelector(".credit-value"),
+  winAmount: document.querySelector(".winAmount"),
+  winContainer: document.getElementById("label-win"),
+  winPortrait: document.querySelector(".win-portrait"),
+  winPortraitContainer: document.getElementById("label-portrait-win"),
+};
+
+let creditAmount = 1000;
+let betMultiplier = 1;
+let currentWinBet = 0;
+let isRunning = false;
+let animationInterval;
+
+// Increase or decrease bet amount based on the action
 function adjustBet(action) {
+  const betAmount = [1, 2, 5, 10, 20, 50, 100];
   let index = betAmount.indexOf(betMultiplier);
+  
   if (action === "increase") {
     if (index < betAmount.length - 1) {
       betMultiplier = betAmount[index + 1];
@@ -47,70 +49,92 @@ function adjustBet(action) {
       }
     }
   }
-  updateBetDisplay();
+  updateBetDisplay();// Update bet display after adjustment
 }
 
+// Function to update the bet display
 function updateBetDisplay() {
-  bet.textContent = betMultiplier;
-  credit.textContent = creditAmount;
+  elements.bet.textContent = betMultiplier;
+  elements.credit.textContent = creditAmount;
 }
 
-
+// Function to handle bet collection display
 function betCollect() {
-  if (currentWinBet == 0) {
-    bet_container.style.display = "block";
-    collect.style.display = "none";
+  if (currentWinBet === 0) {
+    elements.betContainer.style.display = "block";
+    elements.collect.style.display = "none";
   } else {
-    bet_container.style.display = "none";
-    collect.style.display = "block";
+    elements.betContainer.style.display = "none";
+    elements.collect.style.display = "block";
   }
 }
+
+// Function to update credit and win amount display
 function updateCredit() {
-    credit.textContent = creditAmount;
-    winAmount.textContent = currentWinBet;
-    winPortrait.textContent=currentWinBet;
-  
+  elements.credit.textContent = creditAmount;
+  elements.winAmount.textContent = currentWinBet;
+  elements.winPortrait.textContent = currentWinBet;
 }
 
+// Function to add card to history
 function addCardInHistory(card) {
   const historyCards = document.querySelector(".history-cards");
   const clonedCard = card.cloneNode(true);
   historyCards.append(clonedCard);
   if (historyCards.children.length > 4) {
-    historyCards.removeChild(historyCards.firstElementChild); }
+    historyCards.removeChild(historyCards.firstElementChild);
+  }
 }
 
 
-
+// Function for payout
 function payout() {
-  increaseCounterAnimation(winAmount,1000,0,currentWinBet);
-  increaseCounterAnimation(credit,1000,creditAmount+currentWinBet,creditAmount);
-  creditAmount+= currentWinBet;
+  increaseCounterAnimation(elements.winAmount, 1000, 0, currentWinBet);
+  increaseCounterAnimation(elements.winPortrait, 1000, 0, currentWinBet);
+  increaseCounterAnimation(
+    elements.credit,
+    1000,
+    creditAmount + currentWinBet,
+    creditAmount
+  );
+  creditAmount += currentWinBet;
   currentWinBet = 0;
   updateCredit();
-  bet_container.style.display = "block";
-  collect.style.display = "none";
+  elements.betContainer.style.display = "block";
+  elements.collect.style.display = "none";
 }
 
+// Function to display loss message
+function showLossMessage() {
+  elements.winContainer.style.color = "red";
+  elements.winPortraitContainer.style.color = "red";
+  animationZoom(elements.winContainer);
+  animationZoom(elements.winPortraitContainer);
+  elements.winContainer.textContent = "YOU LOSE";
+  elements.winPortraitContainer.textContent = "YOU LOSE";
+  setTimeout(showWinMessage, 2000);
+}
 
+// Function to display win message
+function showWinMessage() {
+  elements.winContainer.textContent = "Win";
+  elements.winPortraitContainer.textContent = "Win";
+  elements.winContainer.style.color = "gold";
+  elements.winPortraitContainer.style.color = "gold";
+}
 
-let isRunning = false;
-let selectedColor;
-let animationInterval;
-
-
-
+// Function to initialize the game
 function initGame() {
-  credit.textContent = creditAmount;
+  elements.credit.textContent = creditAmount;
   animateShufflingCards();
   animationInterval = setInterval(animateShufflingCards, 80);
   resizeCanvas();
 }
 
-
+// Function to display selected card
 function displaySelectedCard() {
   clearInterval(animationInterval);
-  let selectedCardColor = Math.random() < 0.5 ? "red" : "black"; 
+  let selectedCardColor = Math.random() < 0.5 ? "red" : "black";
   let Card;
   if (selectedCardColor === "red") {
     Card = Math.random() < 0.5 ? card.red1 : card.red2;
@@ -123,60 +147,38 @@ function displaySelectedCard() {
   if (selectedCardColor == selectedColor) {
     currentWinBet = currentWinBet * 2;
     updateCredit();
-   
-    animationZoom(winAmount);
+    showWinMessage();
+    animationZoom(elements.winAmount);
   } else {
     currentWinBet = 0;
     updateCredit();
     showLossMessage();
   }
   betCollect();
+  setTimeout(enableButton, 2000);
+}
+
+// Function to start the game
+function startGame() {
+  if (isRunning || (creditAmount < betMultiplier && currentWinBet == 0)) {
+    return;
+  }
+  isRunning = true;
+  disableButton();
+  clearInterval(animationInterval);
+  if (currentWinBet == 0) {
+    creditAmount -= betMultiplier;
+    updateCredit();
+    currentWinBet = betMultiplier;
+  }
+
+  displaySelectedCard();
   setTimeout(() => {
-    enableButton();
+    animationInterval = setInterval(animateShufflingCards, 80);
+    isRunning = false;
   }, 2000);
 }
-   
 
-
-    function startGame() {
-      if (isRunning || (creditAmount < betMultiplier && currentWinBet == 0)) {  
-        return;
-      }
-      
-      isRunning = true;
-      disableButton();
-      clearInterval(animationInterval);
-      if (currentWinBet == 0) {
-        creditAmount -= betMultiplier;
-        updateCredit();
-        currentWinBet = betMultiplier;
-      }
-
-      displaySelectedCard();
-      setTimeout(() => {
-        animationInterval = setInterval(animateShufflingCards,80);
-        isRunning = false;
-      }, 2000);
-    }
-
-    function showLossMessage() {
-      const winPortraitContainer=document.getElementById('label-portrait-win');
-      const winContainer=document.getElementById('label-win');
-      winContainer.style.color='red';
-      winPortraitContainer.style.color='red';
-      animationZoom(winContainer);
-      animationZoom(winPortraitContainer);
-      winContainer.innerHTML = 'YOU LOSE';
-      winPortraitContainer.innerHTML = 'YOU LOSE';
-      setTimeout(function() {
-        winPortraitContainer.innerHTML = "Win";
-        winContainer.innerHTML="Win";
-        winContainer.style.color='gold';
-        winPortraitContainer.style.color='gold';
-      }, 2000); 
-     
-  }
-  
-
-window.addEventListener("load", initGame());
+// event
+window.addEventListener("load", initGame);
 window.addEventListener("orientationchange", checkOrientation);
