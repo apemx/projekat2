@@ -66,7 +66,7 @@ header {
   flex-direction: row-reverse;
   justify-content: center;
   width: 100%;
-  background: url("./Assets/mahagoni.jpg");
+  background: url("/Assets/mahagoni.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   border-radius: 2vmin;
@@ -86,7 +86,7 @@ header {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background: url("./Assets/background.jpg");
+  background: url("/Assets/background.jpg");
   background-size: contain;
   background-size: 15% 25%;
 }
@@ -98,7 +98,7 @@ main {
   width: 95vmin;
   height: 60vmin;
   border-radius: 20vmin;
-  background: url("./Assets/mahagoni.jpg");
+  background: url("/Assets/mahagoni.jpg");
   box-shadow: inset 0 0 20vmin rgb(7, 0, 0);
   border: 1vmin double black;
   background-size: 100% 100%;
@@ -215,6 +215,7 @@ footer {
   background-color: var(--color-success);
 }
 .collect-container {
+  order: 4;
   margin-right: 2vmin;
   display: none;
 }
@@ -235,22 +236,22 @@ footer button {
   font-size: 3vmin;
 }
 .btn-info {
+
   margin-left: 3vmin;
   border-radius: 1vmin;
   color: var(--color-info);
 }
 
 .credit-container {
+  order: 1;
   display: flex;
   gap: 1vmin;
-  margin-right: auto;
   flex-direction: column;
 }
 .win-container {
+  order: 2;
   color: var(--color-win);
-  position: absolute;
-  left: 50%;
-  margin: 0 auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
@@ -265,6 +266,7 @@ footer button {
   gap: 2vmin;
 }
 .bet-container {
+  order: 3;
   margin-right: 2vmin;
 }
 .bet label {

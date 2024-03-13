@@ -9,8 +9,6 @@ function animationZoom(element){
       }, 1000);
     }, 1000);
 }   
-
-
   function animateShufflingCards() {
     if (!isRed) {
     ctx.drawImage(card.redback, 0, 0, canvas.width, canvas.height);
@@ -20,29 +18,17 @@ function animationZoom(element){
     isRed=!isRed;
     }
   }
-  
-  function decreaseCounterAnimation(targetElement, duration, initialValue) {
-    const step = Math.floor(duration / initialValue);
-    let currentValue = initialValue;
-    const timer = setInterval(() => {
-      if (currentValue <= 0) {
-        clearInterval(timer);
-        return;
-      }
-      currentValue--;
+
+  function increaseCounterAnimation(targetElement, duration, finalValue, startValue = 0) {
+    const start = performance.now();
+    const delta = startValue < finalValue ? 1 : -1;
+    const step = (timestamp) => {
+      const progress = (timestamp - start) / duration;
+      const currentValue = Math.floor(startValue + delta * Math.abs(finalValue - startValue) * progress);
       targetElement.textContent = currentValue;
-    }, step);
-  }
-  
-  function increaseCounterAnimation(targetElement,duration,finalValue, startValue=0) {
-    const step = Math.floor(duration / Math.abs(finalValue - startValue));
-    let currentValue = startValue;
-    const timer = setInterval(() => {
-      const delta = startValue < finalValue ? 1 : -1;
-      currentValue += delta;
-      targetElement.textContent = currentValue;
-      if ((delta === 1 && currentValue >= finalValue) || (delta === -1 && currentValue <= finalValue)) {
-        clearInterval(timer);
+      if ((delta === 1 && currentValue < finalValue) || (delta === -1 && currentValue > finalValue)) {
+        requestAnimationFrame(step);
       }
-    }, step);
+    };
+    requestAnimationFrame(step);
   }

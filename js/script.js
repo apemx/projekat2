@@ -74,22 +74,18 @@ function updateCredit() {
 
 function addCardInHistory(card) {
   const historyCards = document.querySelector(".history-cards");
-
   const clonedCard = card.cloneNode(true);
-
   historyCards.append(clonedCard);
   if (historyCards.children.length > 4) {
-    console.log("usao");
     historyCards.removeChild(historyCards.firstElementChild); }
 }
 
 
 
 function payout() {
-  decreaseCounterAnimation(winAmount,1000,currentWinBet);
-  decreaseCounterAnimation(winPortrait,1000,currentWinBet);
+  increaseCounterAnimation(winAmount,1000,0,currentWinBet);
   increaseCounterAnimation(credit,1000,creditAmount+currentWinBet,creditAmount);
-  creditAmount += currentWinBet;
+  creditAmount+= currentWinBet;
   currentWinBet = 0;
   updateCredit();
   bet_container.style.display = "block";
@@ -100,8 +96,6 @@ function payout() {
 
 let isRunning = false;
 let selectedColor;
-let selectedCard;
-let currentCard;
 let animationInterval;
 
 
@@ -132,10 +126,7 @@ function displaySelectedCard() {
    
     animationZoom(winAmount);
   } else {
-    
     currentWinBet = 0;
-    
-    console.log(currentWinBet);
     updateCredit();
     showLossMessage();
   }
@@ -148,8 +139,7 @@ function displaySelectedCard() {
 
 
     function startGame() {
-      if (isRunning || (creditAmount < betMultiplier && currentWinBet == 0)) {
-        
+      if (isRunning || (creditAmount < betMultiplier && currentWinBet == 0)) {  
         return;
       }
       
@@ -177,22 +167,16 @@ function displaySelectedCard() {
       animationZoom(winContainer);
       animationZoom(winPortraitContainer);
       winContainer.innerHTML = 'YOU LOSE';
-      winAmountContainer.style.left='48%';
       winPortraitContainer.innerHTML = 'YOU LOSE';
-      
       setTimeout(function() {
         winPortraitContainer.innerHTML = "Win";
         winContainer.innerHTML="Win";
-        winAmountContainer.style.left='50%';
         winContainer.style.color='gold';
         winPortraitContainer.style.color='gold';
       }, 2000); 
      
   }
   
-    function showWin(){
-
-    }
 
 window.addEventListener("load", initGame());
 window.addEventListener("orientationchange", checkOrientation);
